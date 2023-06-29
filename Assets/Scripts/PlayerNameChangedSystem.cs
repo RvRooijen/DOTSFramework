@@ -3,7 +3,6 @@ using Unity.Entities;
 
 public partial struct PlayerNameChangedSystem : ISystem
 {
-	[BurstCompile]
 	public void OnUpdate(ref SystemState state)
 	{
 		foreach (var playerNameChanged in SystemAPI.Query<PlayerNameChanged>())

@@ -8,18 +8,18 @@ public class MainMenuUI : MonoBehaviour, IPlayerNameChanged
 	
 	public void PlayerNameChanged(string newName)
 	{
+		Debug.Log(newName);
 		playerName.text = newName;
 	}
 
-	class Baker : Baker<MainMenuUI>
-	{
-		public override void Bake(MainMenuUI authoring)
-		{
-			var entity = GetEntity(TransformUsageFlags.None);
-			AddComponentObject(entity, new PlayerNameChanged
-			{
-				Listener = authoring
-			});
-		}
-	}
+    private void Start()
+    {
+	    World world = World.DefaultGameObjectInjectionWorld;
+        EntityManager entityManager = world.EntityManager;
+        Entity entity = entityManager.CreateEntity(typeof(PlayerNameChanged));
+        entityManager.AddComponentObject(entity, new PlayerNameChanged
+        {
+	        Listener = this
+        });
+    }
 }
